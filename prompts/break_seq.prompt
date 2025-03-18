@@ -1,0 +1,13 @@
+Generate funny list of sentences about peeing.
+Text will be displayed on the stream in the small break.
+
+Requirements:
+- The sequence should include %COUNT% items
+- The sequence should be funny
+- Use toilet humor
+- Every item should not exceed 50 characters
+- The sequence has to be funny
+- Every item should be unique
+- Every item should contain emoji
+
+Output in JSON as list of strings. Texts have to be in Czech language.

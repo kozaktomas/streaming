@@ -1,0 +1,13 @@
+Generate funny list of sentences about stream ending.
+Text will be displayed on the stream during the ending sequence.
+
+Requirements:
+- The sequence should include %COUNT% items
+- The sequence should be funny
+- Use humor
+- Every item should not exceed 50 characters
+- The sequence has to be funny
+- Every item should be unique
+- Every item should contain emoji
+
+Output in JSON as list of strings. Texts have to be in Czech language.
