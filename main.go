@@ -118,6 +118,12 @@ func run(promptFile string, seconds int) error {
 			continue
 		}
 
+		if len(items) < seconds/6 {
+			msg := fmt.Sprintf("Not enough items. I need at least %d items, but got %d", seconds/6, len(items))
+			params.Messages.Value = append(params.Messages.Value, openai.UserMessage(msg))
+			continue
+		}
+
 		running = false
 	}
 
