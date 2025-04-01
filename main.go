@@ -35,7 +35,7 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Starting sequence",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return run("starting_seq.prompt", 60*10)
+		return run("Stream is starting...", "starting_seq.prompt", 60*10)
 	},
 }
 
@@ -49,7 +49,7 @@ var breakCmd = &cobra.Command{
 			return fmt.Errorf("invalid number of seconds: %s", args[0])
 		}
 
-		return run("break_seq.prompt", seconds)
+		return run("Small break...", "break_seq.prompt", seconds)
 	},
 }
 
@@ -57,7 +57,7 @@ var endCmd = &cobra.Command{
 	Use:   "end",
 	Short: "Ending sequence",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return run("ending_seq.prompt", 60*5)
+		return run("Stream is ending...", "ending_seq.prompt", 60*5)
 	},
 }
 
@@ -75,7 +75,7 @@ func main() {
 	os.Exit(0)
 }
 
-func run(promptFile string, seconds int) error {
+func run(title, promptFile string, seconds int) error {
 	ctx := context.Background()
 	openAiKey := os.Getenv("OPENAI_API_KEY")
 
@@ -141,7 +141,7 @@ func run(promptFile string, seconds int) error {
 		progressbar.OptionSetDescription("Booting..."),
 	)
 
-	fmt.Print("\n   Stream is starting...\n")
+	fmt.Printf("\n   %s\n", title)
 	fmt.Println()
 
 	for i := 0; i < n; i++ {
