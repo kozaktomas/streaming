@@ -6,6 +6,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"regexp"
 	"strconv"
@@ -35,6 +36,9 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Starting sequence",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if err := personalPageHook(true); err != nil {
+			return err
+		}
 		return run("Stream is starting...", "starting_seq.prompt", 60*10)
 	},
 }
@@ -57,6 +61,9 @@ var endCmd = &cobra.Command{
 	Use:   "end",
 	Short: "Ending sequence",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if err := personalPageHook(false); err != nil {
+			return err
+		}
 		return run("Stream is ending...", "ending_seq.prompt", 60*5)
 	},
 }
@@ -175,6 +182,40 @@ func parseJsonFromResponse(resp string) ([]string, error) {
 	}
 
 	return result, nil
+}
+
+// sends hook to my personal page
+func personalPageHook(live bool) error {
+	const URL = "https://kozak.in/api/live"
+
+	data := struct {
+		Live bool `json:"live"`
+	}{
+		Live: live,
+	}
+
+	jsonBytes, err := json.Marshal(data)
+	if err != nil {
+		return fmt.Errorf("could not marshal json: %s", err)
+	}
+
+	request, err := http.NewRequest("POST", URL, bytes.NewReader(jsonBytes))
+	if err != nil {
+		return fmt.Errorf("could not create request: %s", err)
+	}
+	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Authorization", "Bearer "+os.Getenv("PERSONAL_PAGE_API_KEY"))
+
+	resp, err := http.DefaultClient.Do(request)
+	if err != nil {
+		return fmt.Errorf("could not send request: %s", err)
+	}
+
+	if resp.StatusCode != http.StatusNoContent {
+		return fmt.Errorf("invalid status code: %d", resp.StatusCode)
+	}
+
+	return nil
 }
 
 func loadEnvironment() {
