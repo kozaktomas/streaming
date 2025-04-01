@@ -87,7 +87,7 @@ func run(promptFile string, seconds int) error {
 	if err != nil {
 		return err
 	}
-	//  eval "$(streaming completion zsh)"; compdef _streaming streaming
+
 	question := strings.ReplaceAll(string(content), "%COUNT%", fmt.Sprintf("%d", seconds/6))
 
 	messages := openai.F([]openai.ChatCompletionMessageParamUnion{
