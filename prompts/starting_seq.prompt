@@ -1,6 +1,6 @@
-For my Twitch stream generate a funny booting sequence.
-The sequence will be used in the starting soon screen.
-It should look like an output from a terminal from initialization program.
+For my Twitch stream generate a funny booting sequence,
+The sequence will be used in the starting soon screen,
+It should look like an output from a terminal from initialization program,
 
 Requirements:
 - The sequence should include at least 100 items
