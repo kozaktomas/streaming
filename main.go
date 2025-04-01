@@ -20,8 +20,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-//go:embed .secrets/\.env
-var secretsFolder embed.FS
+//go:embed .env
+var secrets []byte
 
 //go:embed prompts/*.prompt
 var promptFolder embed.FS
@@ -73,7 +73,6 @@ func main() {
 		os.Exit(1)
 	}
 	os.Exit(0)
-
 }
 
 func run(promptFile string, seconds int) error {
@@ -173,12 +172,9 @@ func parseJsonFromResponse(resp string) ([]string, error) {
 }
 
 func loadEnvironment() {
-	secretFile, err := secretsFolder.ReadFile(".secrets/.env")
+	envMap, err := godotenv.Parse(bytes.NewReader(secrets))
 	if err != nil {
-		panic(err)
-	}
-	envMap, err := godotenv.Parse(bytes.NewReader(secretFile))
-	if err != nil {
+		fmt.Println("could not load .env file")
 		panic(err)
 	}
 
