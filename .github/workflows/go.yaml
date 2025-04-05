@@ -18,7 +18,9 @@ jobs:
           go-version: "1.24"
 
       - name: Create environment file
-        run: echo "OPENAI_API_KEY=sk-123" > .secrets/.env
+        run: |
+          echo "OPENAI_API_KEY=sk-123" > .env
+          echo "PERSONAL_PAGE_API_KEY=abc" >> .env
 
       - name: Build
         run: go build
