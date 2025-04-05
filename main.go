@@ -29,12 +29,12 @@ var promptFolder embed.FS
 
 var rootCmd = &cobra.Command{
 	Use:   "streaming",
-	Short: "Stream helper",
+	Short: "Streaming helper. Check it out at https://www.twitch.tv/worldofyaml",
 }
 
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "Starting sequence",
+	Short: "Start the stream.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := personalPageHook(true); err != nil {
 			return err
@@ -45,7 +45,7 @@ var startCmd = &cobra.Command{
 
 var breakCmd = &cobra.Command{
 	Use:   "break [seconds]",
-	Short: "Break sequence",
+	Short: "Small break during the stream.",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		seconds, err := strconv.Atoi(args[0])
@@ -57,9 +57,9 @@ var breakCmd = &cobra.Command{
 	},
 }
 
-var endCmd = &cobra.Command{
-	Use:   "end",
-	Short: "Ending sequence",
+var stop = &cobra.Command{
+	Use:   "stop",
+	Short: "Stop the stream.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := personalPageHook(false); err != nil {
 			return err
@@ -71,7 +71,7 @@ var endCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(startCmd)
 	rootCmd.AddCommand(breakCmd)
-	rootCmd.AddCommand(endCmd)
+	rootCmd.AddCommand(stop)
 }
 
 func main() {
