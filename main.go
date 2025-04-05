@@ -58,7 +58,7 @@ var breakCmd = &cobra.Command{
 }
 
 var stopCmd = &cobra.Command{
-	Use:   "stopCmd",
+	Use:   "stop",
 	Short: "Stop the stream.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := personalPageHook(false); err != nil {
