@@ -1,0 +1,11 @@
+Generate funny list of sentences about coffee preparation.
+Text will be displayed on the stream in the small break.
+
+Requirements:
+- The list should include %COUNT% items
+- The list should be funny
+- Use off-color, vulgar, crude humor
+- Every item should not exceed 50 characters
+- Every item should be unique
+
+Output in JSON as list of strings. Texts have to be in Czech language.

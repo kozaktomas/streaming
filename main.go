@@ -43,6 +43,20 @@ var startCmd = &cobra.Command{
 	},
 }
 
+var coffeeCmd = &cobra.Command{
+	Use:   "kafe [seconds]",
+	Short: "Small break - coffee preparation.",
+	Args:  cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		seconds, err := strconv.Atoi(args[0])
+		if err != nil {
+			return fmt.Errorf("invalid number of seconds: %s", args[0])
+		}
+
+		return run("Coffee prep...", "coffee_seq.prompt", seconds)
+	},
+}
+
 var breakCmd = &cobra.Command{
 	Use:   "break [seconds]",
 	Short: "Small break during the stream.",
@@ -70,6 +84,7 @@ var stopCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(startCmd)
+	rootCmd.AddCommand(coffeeCmd)
 	rootCmd.AddCommand(breakCmd)
 	rootCmd.AddCommand(stopCmd)
 }
